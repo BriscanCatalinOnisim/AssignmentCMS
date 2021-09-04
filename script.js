@@ -13,6 +13,7 @@ closeButton.addEventListener("click", toggleModal);
 function addRowToTable() {
     var table = document.getElementById("myTable");
     var row = table.insertRow(-1);
+    var f = '<input type="button" value="Delete Row" onclick="DeleteRowFunction()">';
 
     if(document.getElementById("fname").value.length != 0 && document.getElementById("lname").value.length != 0 
     && document.getElementById("email").value.length != 0 && document.getElementById("birthday").value.length != 0)
@@ -23,13 +24,15 @@ function addRowToTable() {
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);       
-                
+        var cell7 = row.insertCell(6);       
+
         cell1.innerHTML  = document.getElementById("fname").value;
         cell2.innerHTML  = document.getElementById("lname").value;
         cell3.innerHTML  = document.getElementById("email").value;
         cell4.innerHTML  = document.getElementById("birthday").value;
-        cell4.innerHTML  = document.getElementById("gender").value;
+        cell5.innerHTML  = document.getElementById("gender").value;
         cell6.innerHTML  = document.getElementById("image").value;
+        cell7.innerHTML  = f;
     }
     else 
     {
@@ -56,7 +59,12 @@ function addRowToTable() {
         cell1.innerHTML  = document.getElementById("fname").value;
         cell2.innerHTML  = document.getElementById("lname").value;
         cell3.innerHTML  = document.getElementById("email").value;
-        cell4.innerHTML  = document.getElementById("birthday").value;
-
+        cell5.innerHTML  = document.getElementById("birthday").value;
+        cell7.innerHTML = f;
     }
+}
+
+
+function DeleteRowFunction() {
+    
 }
