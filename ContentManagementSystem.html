@@ -29,14 +29,12 @@
             <span class="close-button">&times;</span>
             <h1>Hello, Add a new entry in the table!</h1>
             <form action="/action_page.php">
-
-                <label for="fname">First Name</label>
                 <div class="div1"><input type="text" id="fname" name="firstname" placeholder="Your name.."></div>                    
-                <label for="lname">Last Name</label>
                 <div class="div1"><input type="text" id="lname" name="lastname" placeholder="Your last name.."></div>
-                <label for="email">Email</label>
                 <div class="div1"><input type="text" id="lname" name="email" placeholder="Your email.."></div>
-                <label for="Gender">Gender</label>
+                <div class="div1">    
+                    <label for="Gender">Gender</label>
+                </div>
                 <div class="div1">
                     <select id="gender" name="gender">
                         <option value="male">male</option>
@@ -45,7 +43,13 @@
                 </div>
                 <div>
                     <label for="birthday">Birthday</label>
-                    <div class="div1"><input type="date" id="birthday" name="birthday" max="2005-12-31"></div>
+                </div>
+                <div>
+                    <input type="date" id="birthday" name="birthday" max="2005-12-31">
+                </div>
+                <div> 
+                    <label for="photo">Add Photo</label>
+                    <input type="image" id="image" name="image">
                 </div>
                 <input type="submit" value="Submit">
             </form>
