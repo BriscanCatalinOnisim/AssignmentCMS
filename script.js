@@ -29,8 +29,10 @@ function addRowToTable() {
         cell1.innerHTML  = document.getElementById("fname").value;
         cell2.innerHTML  = document.getElementById("lname").value;
         cell3.innerHTML  = document.getElementById("email").value;
-        cell4.innerHTML  = document.getElementById("birthday").value;
-        cell5.innerHTML  = document.getElementById("gender").value;
+        cell4.innerHTML  = document.getElementById("gender").value;
+        var d = document.getElementById("birthday").value;
+        var c = moment(d).format('MMMM d, YYYY')
+        cell5.innerHTML  = c;
         cell6.innerHTML  = document.getElementById("image").value;
         cell7.innerHTML  = f;
     }
@@ -59,12 +61,16 @@ function addRowToTable() {
         cell1.innerHTML  = document.getElementById("fname").value;
         cell2.innerHTML  = document.getElementById("lname").value;
         cell3.innerHTML  = document.getElementById("email").value;
-        cell5.innerHTML  = document.getElementById("birthday").value;
+        var d = document.getElementById("birthday").value;
+        var c = moment(d).format('MMMM d, YYYY')
+        cell5.innerHTML  = c;
         cell7.innerHTML = f;
     }
 }
 
 
 function DeleteRowFunction() {
-    
+    var td = event.target.parentNode; 
+    var tr = td.parentNode; // the row to be removed
+    tr.parentNode.removeChild(tr);
 }
