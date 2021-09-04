@@ -33,7 +33,8 @@ function addRowToTable() {
         var d = document.getElementById("birthday").value;
         var c = moment(d).format('MMMM d, YYYY')
         cell5.innerHTML  = c;
-        cell6.innerHTML  = document.getElementById("image").value;
+        var filename = document.getElementById('file-id').files[0].name;
+        cell6.innerHTML  = `<img src= "${filename}" width="50" height="60">`;
         cell7.innerHTML  = f;
     }
     else 
@@ -73,4 +74,10 @@ function DeleteRowFunction() {
     var td = event.target.parentNode; 
     var tr = td.parentNode; // the row to be removed
     tr.parentNode.removeChild(tr);
+}
+
+function theimage(){
+    var filename = document.getElementById('file-id').files[0].name;
+    document.getElementById('file-path').value = filename;
+    alert(filename);
 }
