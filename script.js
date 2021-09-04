@@ -75,9 +75,3 @@ function DeleteRowFunction() {
     var tr = td.parentNode; // the row to be removed
     tr.parentNode.removeChild(tr);
 }
-
-function theimage(){
-    var filename = document.getElementById('file-id').files[0].name;
-    document.getElementById('file-path').value = filename;
-    alert(filename);
-}
