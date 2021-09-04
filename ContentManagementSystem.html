@@ -29,29 +29,24 @@
             <span class="close-button">&times;</span>
             <h1>Hello, Add a new entry in the table!</h1>
             <div action="/action_page.php">
-                <div class="div1"><input type="text" id="fname" name="firstname" placeholder="Your name.."></div>                    
-                <div class="div1"><input type="text" id="lname" name="lastname" placeholder="Your last name.."></div>
-                <div class="div1"><input type="text" id="email" name="email" placeholder="Your email.."></div>
-                <div class="div1">    
-                    <label for="Gender">Gender</label>
-                </div>
-                <div class="div1">
-                    <select id="gender" name="gender">
-                        <option value="male">male</option>
-                        <option value="female">female</option> 
-                    </select>
-                </div>
-                <div>
-                    <label for="birthday">Birthday</label>
-                </div>
-                <div>
-                    <input type="date" id="birthday" name="birthday" max="2005-12-31">
-                </div>
-                <div> 
-                    <label for="photo">Add Photo</label>
-                    <input type="image" id="image" name="image">
-                </div>
-                <input type="submit" value="Submit" onclick="addRowToTable(); toggleModal();">
+
+                <input type="text" id="fname" name="firstname" placeholder="Your name.."/>                                
+                <input type="text" id="lname" name="lastname" placeholder="Your last name.."/>
+                <input type="text" id="email" name="email" placeholder="Your email.."/>  
+
+                <label for="Gender">Gender</label>            
+                <select id="gender" name="gender">
+                    <option value="male">male</option>
+                    <option value="female">female</option> 
+                </select>
+            
+                <label for="birthday">Birthday</label>            
+                <input type="date" id="birthday" name="birthday" max="2005-12-31"/>
+            
+                <label for="photo">Add Photo</label>
+                <input type="image" id="image" name="image">
+                
+                <input type="submit" value="Submit" onclick="addRowToTable();">
             </div>
         </div>
     </div>
@@ -62,7 +57,8 @@
             <th id="tfname">First Name</th>
             <th id="temail">Email</th>
             <th id="tgender">Gender</th>
-            <th id="tbirthday">Birthday</th>            
+            <th id="tbirthday">Birthday</th> 
+            <th id="timage">Image</th>           
 
             <tr>
                 <td>Peter</td>
@@ -70,6 +66,7 @@
                 <td>peterparker@gmail.com</td>
                 <td>male</td>
                 <td>14.12.2000</td>
+                <td><img src="images/peter.jpg" width="50" height="60"></td>
             </tr>
             <tr>
                 <td>John</td>
@@ -77,6 +74,7 @@
                 <td>johnpresley@gmail.com</td>
                 <td>male</td>
                 <td>14.11.2000</td>
+                <td><img src="images/john.jpg" width="50" height="60"></td>
             </tr>
         </table>
     </div>
