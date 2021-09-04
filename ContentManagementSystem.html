@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="ContentManagementSystem.css">
     <title>ContentManagementSystem</title>
-    <meta charset="UTF-8">"
+    <meta charset="UTF-8">
 </head>
 <body>
     <div class="topnav">
@@ -28,6 +28,27 @@
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h1>Hello, Add a new entry in the table!</h1>
+            <form action="/action_page.php">
+
+                <label for="fname">First Name</label>
+                <div class="div1"><input type="text" id="fname" name="firstname" placeholder="Your name.."></div>                    
+                <label for="lname">Last Name</label>
+                <div class="div1"><input type="text" id="lname" name="lastname" placeholder="Your last name.."></div>
+                <label for="email">Email</label>
+                <div class="div1"><input type="text" id="lname" name="email" placeholder="Your email.."></div>
+                <label for="Gender">Gender</label>
+                <div class="div1">
+                    <select id="gender" name="gender">
+                        <option value="male">male</option>
+                        <option value="female">female</option> 
+                    </select>
+                </div>
+                <div>
+                    <label for="birthday">Birthday</label>
+                    <div class="div1"><input type="date" id="birthday" name="birthday" max="2005-12-31"></div>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
 
