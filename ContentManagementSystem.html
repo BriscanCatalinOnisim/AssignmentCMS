@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="ContentManagementSystem.css">
-    </head>
-    <body>
-        <div class="topnav">
-            <div class="leftTopNav">
-                <a class="tab" href="#">Home</a>
-                <a class="tab" href="#">Privacy</a>
-            </div>
-            <div class="rightTopNav">
-                <a class="tab" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">Gmail</a>
-                <a class="tab" href="https://www.google.ro/imghp?hl=en&tab=ri&ogbl">Imagini</a>
-            </div>
+<head>
+    <link rel="stylesheet" href="ContentManagementSystem.css">
+    <title>ContentManagementSystem</title>
+    <meta charset="UTF-8">"
+</head>
+<body>
+    <div class="topnav">
+        <div class="leftTopNav">
+            <a class="tab" href="#">Home</a>
+            <a class="tab" href="#">Privacy</a>
         </div>
+        <div class="rightTopNav">
+            <a class="tab" href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">Gmail</a>
+            <a class="tab" href="https://www.google.ro/imghp?hl=en&tab=ri&ogbl">Imagini</a>
+        </div>
+    </div>
 
-        <div>
-            <h2>Create Entry</h2>
-            <button class="button" style="vertical-align:middle">
-                <span> Create </span>
-            </button>
+    <div>
+        <h2>Create Entry</h2>
+        <button id="button" class="trigger" style="vertical-align:middle">
+            <span> Create </span>
+        </button>
+    </div> 
+    
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h1>Hello, Add a new entry in the table!</h1>
         </div>
+    </div>
 
-        <div style="overflow-x: auto;">
-            <table>
-                <th>No.</th>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>Birthday</th>
+    <div style="overflow-x: auto;">
+        <table>
+            <th>No.</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Birthday</th>
 
-                <tr>
-                    <td>1</td>
-                    <td>Peter</td>
-                    <td>Parker</td>
-                    <td>peterparker@gmail.com</td>
-                    <td>male</td>
-                    <td>14.12.2000</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>John</td>
-                    <td>Presley</td>
-                    <td>johnpresley@gmail.com</td>
-                    <td>male</td>
-                    <td>14.11.2000</td>
-                </tr>
-            </table>
+            <tr>
+                <td>1</td>
+                <td>Peter</td>
+                <td>Parker</td>
+                <td>peterparker@gmail.com</td>
+                <td>male</td>
+                <td>14.12.2000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>John</td>
+                <td>Presley</td>
+                <td>johnpresley@gmail.com</td>
+                <td>male</td>
+                <td>14.11.2000</td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        <div class="leftFooter">
+            <a class="tab">About</a>
+            <a class="tab">Advertising</a>
+            <a class="tab">Business</a>
+            <a class="tab">How Search Works</a>
         </div>
-        <div class="footer">
-            <div class="leftFooter">
-                <a class="tab">About</a>
-                <a class="tab">Advertising</a>
-                <a class="tab">Business</a>
-                <a class="tab">How Search Works</a>
-            </div>
-            <div class="spaces">
-        
-            </div>
-            <div class="rightFooter">
-                <a class="tab">Terms</a>
-                <a class="tab">Settings</a>
-            </div>
+        <div class="spaces">
+    
         </div>
-    </body>
+        <div class="rightFooter">
+            <a class="tab">Terms</a>
+            <a class="tab">Settings</a>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
 </html>
