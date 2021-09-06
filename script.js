@@ -13,7 +13,7 @@ function addRowToTable() {
   var table = document.getElementById("myTable");
   var row = table.insertRow(1);
   var f =
-    '<input type="button" value="Delete Row" onclick="DeleteRowFunction()">';
+    '<input type="button" value="Delete Row" onclick="confirmAction();DeleteRowFunction();">';
 
   if (
     document.getElementById("fname").value.length != 0 &&
@@ -109,4 +109,8 @@ function previewFile() {
   if (file) {
     reader.readAsDataURL(file);
   }
+}
+
+function confirmAction() {
+  return confirm('Are you sure you want to delete this item?');
 }
