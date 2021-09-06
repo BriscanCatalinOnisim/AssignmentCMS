@@ -49,7 +49,7 @@ function addRowToTable() {
     cell3.innerHTML = document.getElementById("email").value;
     cell4.innerHTML = document.getElementById("gender").value;
     var d = document.getElementById("birthday").value;
-    var c = moment(d).format("dddd Do MMMM, YYYY");
+    var c = moment(d).format("Do MMMM, YYYY");
     cell5.innerHTML = c;    
     cell7.innerHTML = f;
     if (document.getElementById("file-id").files[0] != null)
