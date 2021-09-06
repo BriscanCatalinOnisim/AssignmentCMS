@@ -13,7 +13,7 @@ var tabContent = new Array();
 
 function addRowToTable() {
   var table = document.getElementById("myTable");
-  var row = table.insertRow(1);
+  
   var f =
     '<input type="button" value="Delete Row" onclick="confirmAction();DeleteRowFunction();">';
 
@@ -21,8 +21,10 @@ function addRowToTable() {
     document.getElementById("fname").value.length != 0 &&
     document.getElementById("lname").value.length != 0 &&
     document.getElementById("email").value.length != 0 &&
-    document.getElementById("birthday").value.length != 0
+    validateEmail(document.getElementById("email").value) &&
+    document.getElementById("birthday").value.length != 0 
   ) {
+    var row = table.insertRow(1);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
@@ -66,22 +68,21 @@ function addRowToTable() {
       alert("Please enter the Last Name.");
       return false;
     }
-    if (document.getElementById("email").value.length == 0) {
-      alert("Please enter the Email.");
+    if (document.getElementById("email").value.length == 0 || validateEmail(document.getElementById("email").value) == false) {
+      alert("Please enter a valid Email.");
       return false;
     }
     if (document.getElementById("birthday").value == "") {
       alert("Please enter the Birthday.");
       return false;
     }
-    cell1.innerHTML = document.getElementById("fname").value;
-    cell2.innerHTML = document.getElementById("lname").value;
-    cell3.innerHTML = document.getElementById("email").value;
-    var d = document.getElementById("birthday").value;
-    var c = moment(d).format("dddd Do MMMM, YYYY");
-    cell5.innerHTML = c;
-    cell7.innerHTML = f;
   }
+}
+
+function validateEmail(email) 
+{
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
 }
 
 function DeleteRowFunction() {
