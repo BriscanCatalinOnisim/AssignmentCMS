@@ -11,7 +11,7 @@ closeButton.addEventListener("click", toggleModal);
 
 function addRowToTable() {
   var table = document.getElementById("myTable");
-  var row = table.insertRow(-1);
+  var row = table.insertRow(1);
   var f =
     '<input type="button" value="Delete Row" onclick="DeleteRowFunction()">';
 
@@ -34,11 +34,16 @@ function addRowToTable() {
     cell3.innerHTML = document.getElementById("email").value;
     cell4.innerHTML = document.getElementById("gender").value;
     var d = document.getElementById("birthday").value;
-    var c = moment(d).format("MMMM d, YYYY");
-    cell5.innerHTML = c;
-    var filename = document.getElementById("file-id").files[0].name;
-    cell6.innerHTML = `<img src= "${filename}" width="50" height="60">`;
+    var c = moment(d).format("dddd Do MMMM, YYYY");
+    cell5.innerHTML = c;    
     cell7.innerHTML = f;
+    if (document.getElementById("file-id").files[0] != null)
+    {
+      var filename = document.getElementById("file-id").files[0].name;
+      cell6.innerHTML = `<img src= "${filename}" width="50" height="60">`;
+      previewFile();
+    }
+
   } else {
     if (document.getElementById("fname").value.length == 0) {
       alert("Please enter the First Name.");
@@ -60,7 +65,7 @@ function addRowToTable() {
     cell2.innerHTML = document.getElementById("lname").value;
     cell3.innerHTML = document.getElementById("email").value;
     var d = document.getElementById("birthday").value;
-    var c = moment(d).format("MMMM d, YYYY");
+    var c = moment(d).format("dddd Do MMMM, YYYY");
     cell5.innerHTML = c;
     cell7.innerHTML = f;
   }
@@ -88,5 +93,20 @@ function sortNames() {
         tr[i].style.display = "none";
       }
     }
+  }
+}
+
+function previewFile() {
+  const preview = document.querySelector('img');
+  const file = document.querySelector('input[type=file]').files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener("load", function () {
+    // convert image file to base64 string
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
   }
 }
