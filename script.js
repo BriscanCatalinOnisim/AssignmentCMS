@@ -9,6 +9,8 @@ function toggleModal() {
 trigger.addEventListener("click", toggleModal);
 closeButton.addEventListener("click", toggleModal);
 
+var tabContent = new Array();
+
 function addRowToTable() {
   var table = document.getElementById("myTable");
   var row = table.insertRow(1);
@@ -28,6 +30,17 @@ function addRowToTable() {
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);
     var cell7 = row.insertCell(6);
+
+    tabContent.push({
+      fname: document.getElementById("fname").value,
+      lname: document.getElementById("lname").value,
+      email: document.getElementById("email").value,
+      gender: document.getElementById("gender").value,
+      birthday: document.getElementById("birthday").value,
+      photo: document.getElementById("file-id").value
+    });
+
+    localStorage.setItem("localData", JSON.stringify(tabContent));
 
     cell1.innerHTML = document.getElementById("fname").value;
     cell2.innerHTML = document.getElementById("lname").value;
