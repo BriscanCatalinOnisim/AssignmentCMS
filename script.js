@@ -1,3 +1,24 @@
+window.onload = () =>{
+
+  document.getElementById("add-employee-button").addEventListener("click", AddEmployee, false);
+
+  currentEmployees = JSON.parse(localStorage.getItem('employees'));
+
+  if (currentEmployees == undefined)
+  {
+      localStorage.setItem('employees', JSON.stringify([]));
+      localStorage.setItem('employeeNextId', JSON.stringify(0));
+  }
+  else
+  {
+      currentEmployees.forEach(e => {
+          AppendTable(e);
+      });
+  }
+
+  setDelete();
+}
+
 const modal = document.querySelector(".modal");
 const trigger = document.querySelector(".trigger");
 const closeButton = document.querySelector(".close-button");
@@ -9,74 +30,90 @@ function toggleModal() {
 trigger.addEventListener("click", toggleModal);
 closeButton.addEventListener("click", toggleModal);
 
-var tabContent = new Array();
+function AppendTable(employee) {
+  tableContent = `<tr employee-id=${employee.employeeId}>
+  <td>${employee.lastName}</td>
+  <td>${employee.firstName}</td>
+  <td>${employee.email}</td>
+  <td>${employee.gender}</td>
+  <td>${employee.birthDate}</td>
+  <td><img src="${employee.picture}" width="50" height="60" class="picture"></td>
+  <td class="delete"> <input type="button" value="Delete Row"></td>
+  </tr>`
+  console.log(employee);
+  document.getElementById("myTable").innerHTML += tableContent;
+}
 
-function addRowToTable() {
-  var table = document.getElementById("myTable");
+function AddEmployee() {
+  lastName = document.getElementById("lname").value;
+  firstName = document.getElementById("fname").value;
+  email = document.getElementById("email").value;
+  gender = document.getElementById("gender").value;
+  birthDate = document.getElementById("birthday").value;
+  picture = document.getElementById("file-id").files[0];
+
+  validateForm = validate(lastName, firstName, email, gender, birthDate);
+
+  if(validateForm) {
+      employeeId = JSON.parse(localStorage.getItem('employeeNextId'));
+      allEmployees =  JSON.parse(localStorage.getItem('employees'));
   
-  var f =
-    '<input type="button" value="Delete Row" onclick="confirmAction();DeleteRowFunction();">';
-
-  if (
-    document.getElementById("fname").value.length != 0 &&
-    document.getElementById("lname").value.length != 0 &&
-    document.getElementById("email").value.length != 0 &&
-    validateEmail(document.getElementById("email").value) &&
-    document.getElementById("birthday").value.length != 0 
-  ) {
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);
-    var cell7 = row.insertCell(6);
-
-    tabContent.push({
-      fname: document.getElementById("fname").value,
-      lname: document.getElementById("lname").value,
-      email: document.getElementById("email").value,
-      gender: document.getElementById("gender").value,
-      birthday: document.getElementById("birthday").value,
-      photo: document.getElementById("file-id").value
-    });
-
-    localStorage.setItem("localData", JSON.stringify(tabContent));
-
-    cell1.innerHTML = document.getElementById("fname").value;
-    cell2.innerHTML = document.getElementById("lname").value;
-    cell3.innerHTML = document.getElementById("email").value;
-    cell4.innerHTML = document.getElementById("gender").value;
-    var d = document.getElementById("birthday").value;
-    var c = moment(d).format("Do MMMM, YYYY");
-    cell5.innerHTML = c;    
-    cell7.innerHTML = f;
-    if (document.getElementById("file-id").files[0] != null)
-    {
-      var filename = document.getElementById("file-id").files[0].name;
-      cell6.innerHTML = `<img src= "${filename}" width="50" height="60">`;
-      previewFile();
-    }
-
-  } else {
-    if (document.getElementById("fname").value.length == 0) {
-      alert("Please enter the First Name.");
-      return false;
-    }
-    if (document.getElementById("lname").value.length == 0) {
-      alert("Please enter the Last Name.");
-      return false;
-    }
-    if (document.getElementById("email").value.length == 0 || validateEmail(document.getElementById("email").value) == false) {
-      alert("Please enter a valid Email.");
-      return false;
-    }
-    if (document.getElementById("birthday").value == "") {
-      alert("Please enter the Birthday.");
-      return false;
-    }
+      newEmployee = new Employee(employeeId++, lastName, firstName, email, gender, birthDate, picture);
+      allEmployees.push(newEmployee);
+  
+      localStorage.setItem('employeeNextId', JSON.stringify(employeeId));
+      localStorage.setItem('employees', JSON.stringify(allEmployees));
+  
+      AppendTable(newEmployee);
+      setDelete();
+      clearModal();
   }
+}
+
+function Employee(employeeId, lastName, firstName, email, gender, birthDate, picture) {
+  this.employeeId = employeeId;
+  this.lastName = lastName;
+  this.firstName = firstName;
+  this.email = email;
+  this.birthDate = moment(birthDate).format('D MMMM, YYYY');
+  this.gender = gender;
+  this.picture= picture;
+}
+
+function validate(lastName, firstName, email, sex, birthDate) {
+
+  if (lastName == null || lastName == "") {
+      alert('Last name is required.');
+      return false;
+  }
+
+  if (firstName == null || firstName == "") {
+      alert('First name is required.');
+      return false;
+  }
+
+  if (email == null || email == "") {
+      alert('Email is required.');
+      return false;
+  } else {
+
+      const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/g;
+      if (!regex.test(email)) {
+          alert('Email is invalid.');
+          return false;
+      }
+  }
+
+  if (sex == null || sex == "") {
+      alert('Gender must be selected.');
+      return false;
+  }
+
+  if (birthDate == null || birthDate == "") {
+      alert('You must enter your birthdate.');
+      return false;
+  }
+  return true;
 }
 
 function validateEmail(email) 
@@ -85,10 +122,35 @@ function validateEmail(email)
   return re.test(email);
 }
 
-function DeleteRowFunction() {
-  var td = event.target.parentNode;
-  var tr = td.parentNode; // the row to be removed
-  tr.parentNode.removeChild(tr);
+//Clear modal after adding new employee
+function clearModal() {
+  document.getElementById("lname").value = '';
+  document.getElementById("fname").value = '';
+  document.getElementById("email").value = '';
+  document.getElementById("gender").value = '';
+  document.getElementById("birthday").value = '';
+  document.getElementById("file-id").value = '';
+}
+
+function setDelete() {
+  document.querySelectorAll(".delete").forEach(e => {
+      e.addEventListener("click", deleteEmployeeRow, false);
+  });
+}
+
+//Delete employee function
+function deleteEmployeeRow(htmlDeleteElement) {
+  if (confirm('Are you sure to delete this employee ?')) {
+      rowToBeDeleted = htmlDeleteElement.target.closest("tr");
+      employeeToDeleteId = rowToBeDeleted.getAttribute("employee-id");
+
+      rowToBeDeleted.remove();
+
+      allEmployees = JSON.parse(localStorage.getItem('employees'));
+      allEmployees = allEmployees.filter(e => e.employeeId != employeeToDeleteId);
+
+      localStorage.setItem('employees', JSON.stringify(allEmployees));
+  }
 }
 
 function sortNames() {

@@ -41,7 +41,7 @@
                 <td>male</td>
                 <td>12th November, 2000</td>
                 <td><img src="images/peter.jpg" width="50" height="60"></td>
-                <td><input type="button" value="Delete Row" onclick="confirmAction();DeleteRowFunction()"></td>
+                <td class="delete"><input type="button" value="Delete Row"></td>
             </tr>
             <tr>
                 <td>John</td>
@@ -50,7 +50,7 @@
                 <td>male</td>
                 <td>11th November, 2000</td>
                 <td><img src="images/john.jpg" width="50" height="60"></td>
-                <td><input type="button" value="Delete Row" onclick="confirmAction();DeleteRowFunction()"></td>
+                <td class="delete"><input type="button" value="Delete Row"></td>
             </tr>
         </table>
     </div>
@@ -92,7 +92,7 @@
                 <label for="photo">Add Photo</label>
                 <input type="file" id="file-id" name="file_name">
                 
-                <input type="submit" value="Submit" onclick="addRowToTable();">
+                <input type="submit" id="add-employee-button" value="Submit">
             </div>
         </div>
     </div>
