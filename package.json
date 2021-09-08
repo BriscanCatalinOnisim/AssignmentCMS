@@ -1,0 +1,24 @@
+{
+  "name": "assignmentcms",
+  "version": "1.0.0",
+  "description": "add package.json",
+  "main": "ContentManagementSystem.html",
+  "dependencies": {
+    "firebase": "^9.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm-test",
+    "start": "node ContentManagementSystem.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BriscanCatalinOnisim/AssignmentCMS.git"
+  },
+  "author": "Briscan Catalin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BriscanCatalinOnisim/AssignmentCMS/issues"
+  },
+  "homepage": "https://github.com/BriscanCatalinOnisim/AssignmentCMS#readme"
+}
