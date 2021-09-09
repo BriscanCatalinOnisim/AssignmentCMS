@@ -28,11 +28,11 @@ Informatiile care se cer despre angajati:
 
 - [x] BONUS: data nasterii va fi afisata in formatul urmator: 23.04.2021 va fi afisat ca “23 Aprilie 2021” (puteti face de mana, sau cu moment.js).
 
-- [] BONUS: poza angajatului va fi afisata in stanga numelui, intr-o componenta rotunda (ca poza de profil de la instagram/facebook/teams).
+- [ ] BONUS: poza angajatului va fi afisata in stanga numelui, intr-o componenta rotunda (ca poza de profil de la instagram/facebook/teams).
 
-- [] BONUS: angajatii pot sa fie sortati alfabetic, dupa nume.
+- [ ] BONUS: angajatii pot sa fie sortati alfabetic, dupa nume.
 
-- [] BONUS: angajatii pot sa fie sortati dupa data nasterii.
+- [ ] BONUS: angajatii pot sa fie sortati dupa data nasterii.
 
 - [ ] BONUS: angajatii pot sa fie filtrati dupa sex / data nasterii / daca au poza sau nu.
 
