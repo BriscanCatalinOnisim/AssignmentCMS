@@ -38,7 +38,7 @@ function AppendTable(employee) {
     <td>${employee.email}</td>
     <td>${employee.gender}</td>
     <td>${employee.birthDate}</td>
-    <td><img src="${employee.picture}" width="50" height="60" class="picture"></td>
+    <td><img src="../${employee.picture.name}" width="50" height="60" class="picture"></td>
     <td class="delete"> <input type="button" value="Delete Row"></td>
     </tr>`
     console.log(employee);
