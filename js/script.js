@@ -31,17 +31,31 @@ trigger.addEventListener("click", toggleModal);
 closeButton.addEventListener("click", toggleModal);
 
 function AppendTable(employee) {
-  tableContent = `<tr employee-id=${employee.employeeId}>
-  <td>${employee.lastName}</td>
-  <td>${employee.firstName}</td>
-  <td>${employee.email}</td>
-  <td>${employee.gender}</td>
-  <td>${employee.birthDate}</td>
-  <td><img src="${employee.picture}" width="50" height="60" class="picture"></td>
-  <td class="delete"> <input type="button" value="Delete Row"></td>
-  </tr>`
-  console.log(employee);
-  document.getElementById("myTable").innerHTML += tableContent;
+  if (employee.picture != null) {
+    tableContent = `<tr employee-id=${employee.employeeId}>
+    <td>${employee.lastName}</td>
+    <td>${employee.firstName}</td>
+    <td>${employee.email}</td>
+    <td>${employee.gender}</td>
+    <td>${employee.birthDate}</td>
+    <td><img src="${employee.picture}" width="50" height="60" class="picture"></td>
+    <td class="delete"> <input type="button" value="Delete Row"></td>
+    </tr>`
+    console.log(employee);
+    document.getElementById("myTable").innerHTML += tableContent;
+  } else {
+    tableContent = `<tr employee-id=${employee.employeeId}>
+    <td>${employee.lastName}</td>
+    <td>${employee.firstName}</td>
+    <td>${employee.email}</td>
+    <td>${employee.gender}</td>
+    <td>${employee.birthDate}</td>
+    <td></td>
+    <td class="delete"> <input type="button" value="Delete Row"></td>
+    </tr>`
+    console.log(employee);
+    document.getElementById("myTable").innerHTML += tableContent;
+  }
 }
 
 function AddEmployee() {
