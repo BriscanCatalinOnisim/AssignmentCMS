@@ -19,6 +19,7 @@ window.onload = () =>{
   setDelete();
 }
 
+
 const modal = document.querySelector(".modal");
 const trigger = document.querySelector(".trigger");
 const closeButton = document.querySelector(".close-button");
@@ -37,7 +38,7 @@ function AppendTable(employee) {
     <td>${employee.firstName}</td>
     <td>${employee.email}</td>
     <td>${employee.gender}</td>
-    <td>${employee.birthDate}</td>
+    <td>${employee.birthday}</td>
     <td><img src="${employee.picture.name}" width="50" height="60" class="picture"></td>
     <td class="delete"> <input type="button" value="Delete Row"></td>
     </tr>`
@@ -49,7 +50,7 @@ function AppendTable(employee) {
     <td>${employee.firstName}</td>
     <td>${employee.email}</td>
     <td>${employee.gender}</td>
-    <td>${employee.birthDate}</td>
+    <td>${employee.birthday}</td>
     <td></td>
     <td class="delete"> <input type="button" value="Delete Row"></td>
     </tr>`
@@ -63,16 +64,16 @@ function AddEmployee() {
   firstName = document.getElementById("fname").value;
   email = document.getElementById("email").value;
   gender = document.getElementById("gender").value;
-  birthDate = document.getElementById("birthday").value;
+  birthday = document.getElementById("birthday").value;
   picture = document.getElementById("file-id").files[0];
 
-  validateForm = validate(lastName, firstName, email, gender, birthDate);
+  validateForm = validate(lastName, firstName, email, gender, birthday);
 
   if(validateForm) {
       employeeId = JSON.parse(localStorage.getItem('employeeNextId'));
       allEmployees =  JSON.parse(localStorage.getItem('employees'));
   
-      newEmployee = new Employee(employeeId++, lastName, firstName, email, gender, birthDate, picture);
+      newEmployee = new Employee(employeeId++, lastName, firstName, email, gender, birthday, picture);
       allEmployees.push(newEmployee);
   
       localStorage.setItem('employeeNextId', JSON.stringify(employeeId));
@@ -84,17 +85,17 @@ function AddEmployee() {
   }
 }
 
-function Employee(employeeId, lastName, firstName, email, gender, birthDate, picture) {
+function Employee(employeeId, lastName, firstName, email, gender, birthday, picture) {
   this.employeeId = employeeId;
   this.lastName = lastName;
   this.firstName = firstName;
   this.email = email;
-  this.birthDate = moment(birthDate).format('D MMMM, YYYY');
+  this.birthday = moment(birthday).format('D MMMM, YYYY');
   this.gender = gender;
   this.picture= picture;
 }
 
-function validate(lastName, firstName, email, sex, birthDate) {
+function validate(lastName, firstName, email, sex, birthday) {
 
   if (lastName == null || lastName == "") {
       alert('Last name is required.');
@@ -121,8 +122,8 @@ function validate(lastName, firstName, email, sex, birthDate) {
       return false;
   }
 
-  if (birthDate == null || birthDate == "") {
-      alert('You must enter your birthdate.');
+  if (birthday == null || birthday == "") {
+      alert('You must enter your birthday.');
       return false;
   }
   return true;
