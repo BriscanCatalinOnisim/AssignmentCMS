@@ -25,7 +25,7 @@ function WriteMember(){
     console.log(element.data()["lastname"]);
     console.log(element.data()["email"]);
     console.log(element.data()["gender"]);
-    console.log(element.data()["birthday"].toDate());
+    console.log(element.data()["birthday"]);
     console.log(element.data()["file-id"]);
   });
 }
@@ -95,25 +95,26 @@ function ReadData() {
     cell3.innerHTML=email;
     cell4.innerHTML=gender;
     cell5.innerHTML=birthday; 
-    cell6.innerHTML="<td><img src=$'{picture.name}' width='50' height='60' class='picture'></td>";
-    cell7.innerHTML='<td class="delete"> <input type="button" value="Delete Row"></td>'
-    
-    setDelete();
+    if (picture != null) {
+      cell6.innerHTML='<td><img src=' + picture.name + ' width="50" height="60" class="picture"></td>';
+    }
+    cell7.innerHTML='<td class="delete"> <input type="button" value="Delete Row"></td>';
+
+    setDelete()
     clearModal();
   
   }); 
 }
 ReadData();
 
-function AddEmployeeInDatabase(lastname, firstname, email, gender, birthday, picture) {
+function AddEmployeeInDatabase(lastname, firstname, email, gender, birthday) {
   var id = employeeId++;
   setDoc(doc(membersRef),{
     firstname: lastname,
     lastname: firstname,
     email: email,
-    sex: gender,
+    gender: gender,
     birthday: moment(birthday).format('D MMMM, YYYY'),
-    picture: picture,
     id: id
   });
 }
@@ -128,7 +129,7 @@ function AddEmployee() {
   var email = document.getElementById("email").value;
   var gender = document.getElementById("gender").value;
   var birthday = document.getElementById("birthday").value;
-  var picture = document.getElementById("file-id").files[0].name;
+  var picture = document.getElementById("file-id").files[0];
 
   var validateForm = validate(lastName, firstName, email, gender, birthday);
 
@@ -148,10 +149,12 @@ function AddEmployee() {
     cell3.innerHTML=email;
     cell4.innerHTML=gender;
     cell5.innerHTML=birthday; 
-    cell6.innerHTML="<td><img src=$'{picture.name}' width='50' height='60' class='picture'></td>";
-    cell7.innerHTML='<td class="delete"> <input type="button" value="Delete Row"></td>'
-    
-    AddEmployeeInDatabase(lastName, firstName, email, gender, birthday, picture);
+    cell6.innerHTML='<td><img src= ' + picture.name + ' width="50" height="60" class="picture"></td>';
+    cell7.innerHTML='<td class="delete"> <input type="button" value="Delete Row"></td>';
+
+    AddEmployeeInDatabase(lastName, firstName, email, gender, birthday);
+    setDelete();
+    clearModal();
   }
 }
 
