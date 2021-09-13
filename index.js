@@ -1,5 +1,5 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js";
-import {getFirestore, doc, setDoc, getDoc, getDocs, collection} from "https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js";
+import {getFirestore, doc, setDoc, deleteDoc, getDocs, collection} from "https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -66,6 +66,12 @@ function toggleModal() {
 trigger.addEventListener("click", toggleModal);
 closeButton.addEventListener("click", toggleModal);
 
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+}
 
 function ReadData() {
 
@@ -75,10 +81,10 @@ function ReadData() {
     var lastName = element.data()["lastname"];
     var email = element.data()["email"];
     var gender = element.data()["gender"];
-    var birthday = moment(birthday).format('D MMMM, YYYY'); 
-    var picture = element.data()["file-id"];
+    var birthday = element.data()["birthday"];
+    var date = moment(birthday).format('D MMMM, YYYY'); 
     
-    validate(lastName,firstName, email,gender,birthday,picture);
+    validate(lastName,firstName, email,gender,date);
  
     var table=document.getElementById('myTable');
     var row=table.insertRow();
@@ -88,19 +94,18 @@ function ReadData() {
     var cell3=row.insertCell(2);
     var cell4=row.insertCell(3);
     var cell5=row.insertCell(4);
-    var cell6=row.insertCell(5);
-    var cell7=row.insertCell(6);
+    var cell7=row.insertCell(5);
     cell1.innerHTML=lastName;
     cell2.innerHTML=firstName;
     cell3.innerHTML=email;
     cell4.innerHTML=gender;
-    cell5.innerHTML=birthday; 
-    if (picture != null) {
-      cell6.innerHTML='<td><img src=' + picture.name + ' width="50" height="60" class="picture"></td>';
-    }
-    cell7.innerHTML='<td class="delete"> <input type="button" value="Delete Row"></td>';
-
-    setDelete()
+    cell5.innerHTML=date; 
+    cell7.innerHTML='<input type="button" class="delete-button fa fa-remove" id="deleteButton" value="X">'
+    var drop=document.getElementsByClassName("delete-button");
+    drop[row.rowIndex-1].addEventListener("click", async function(){
+      var currentid=document.getElementById('myTable').rows.length-1;
+      DeleteMember(row, currentid);
+    });
     clearModal();
   
   }); 
@@ -108,8 +113,8 @@ function ReadData() {
 ReadData();
 
 function AddEmployeeInDatabase(lastname, firstname, email, gender, birthday) {
-  var id = employeeId++;
-  setDoc(doc(membersRef),{
+  var id = document.getElementById('myTable').rows.length-1;
+  setDoc(doc(membersRef, `${id}`),{
     firstname: lastname,
     lastname: firstname,
     email: email,
@@ -129,9 +134,8 @@ function AddEmployee() {
   var email = document.getElementById("email").value;
   var gender = document.getElementById("gender").value;
   var birthday = document.getElementById("birthday").value;
-  var picture = document.getElementById("file-id").files[0];
-
-  var validateForm = validate(lastName, firstName, email, gender, birthday);
+  var date = moment(birthday).format('D MMMM, YYYY');
+  var validateForm = validate(lastName, firstName, email, gender, date);
 
   if(validateForm) {
     var table=document.getElementById('myTable');
@@ -142,20 +146,34 @@ function AddEmployee() {
     var cell3=row.insertCell(2);
     var cell4=row.insertCell(3);
     var cell5=row.insertCell(4);
-    var cell6=row.insertCell(5);
-    var cell7=row.insertCell(6);
+    var cell7=row.insertCell(5);
     cell1.innerHTML=lastName;
     cell2.innerHTML=firstName;
     cell3.innerHTML=email;
     cell4.innerHTML=gender;
-    cell5.innerHTML=birthday; 
-    cell6.innerHTML='<td><img src= ' + picture.name + ' width="50" height="60" class="picture"></td>';
-    cell7.innerHTML='<td class="delete"> <input type="button" value="Delete Row"></td>';
+    cell5.innerHTML=date; 
+    cell7.innerHTML='<input type="button" class="delete-button fa fa-remove" id="deleteButton" value="X">'
+    var drop=document.getElementsByClassName("delete-button");
+    drop[row.rowIndex-1].addEventListener("click", async function(){
+      var currentid=document.getElementById('myTable').rows.length-1;
+      DeleteMember(row, currentid);
+    });
 
     AddEmployeeInDatabase(lastName, firstName, email, gender, birthday);
-    setDelete();
     clearModal();
   }
+}
+
+
+function DeleteMemberFromDatabase(currentid){
+  deleteDoc(doc(db, "users", `${currentid}`));
+}
+
+function DeleteMember(row, currentid){
+    var table=document.getElementById('myTable');
+    var id=row.rowIndex;
+    table.deleteRow(id);
+    DeleteMemberFromDatabase(currentid);
 }
 
 function validate(lastName, firstName, email, sex, birthday) {
@@ -208,45 +226,6 @@ function clearModal() {
   document.getElementById("file-id").value = '';
 }
 
-function setDelete() {
-  document.querySelectorAll(".delete").forEach(e => {
-      e.addEventListener("click", deleteEmployeeRow, false);
-  });
-}
-
-//Delete employee function
-function deleteEmployeeRow(htmlDeleteElement) {
-  if (confirm('Are you sure to delete this employee ?')) {
-      var rowToBeDeleted = htmlDeleteElement.target.closest("tr");
-      var employeeToDeleteId = rowToBeDeleted.getAttribute("employee-id");
-
-      rowToBeDeleted.remove();
-
-      var allEmployees = JSON.parse(localStorage.getItem('employees'));
-      var allEmployees = allEmployees.filter(e => e.employeeId != employeeToDeleteId);
-
-      localStorage.setItem('employees', JSON.stringify(allEmployees));
-  }
-}
-
-function sortNames() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
 
 function previewFile() {
   const preview = document.querySelector('img');
@@ -261,8 +240,4 @@ function previewFile() {
   if (file) {
     reader.readAsDataURL(file);
   }
-}
-
-function confirmAction() {
-  return confirm('Are you sure you want to delete this item?');
 }
