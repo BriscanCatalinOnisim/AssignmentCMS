@@ -103,8 +103,8 @@ function ReadData() {
     cell5.innerHTML=date; 
     cell7.innerHTML='<input type="button" class="delete-button fa fa-remove" id="deleteButton" value="X">'
     var drop=document.getElementsByClassName("delete-button");
+    var currentid=employeeId;
     drop[row.rowIndex-1].addEventListener("click", async function(){
-      var currentid=document.getElementById('myTable').rows.length-1;
       DeleteMember(row, currentid);
     });
     clearModal();
@@ -114,7 +114,7 @@ function ReadData() {
 ReadData();
 
 function AddEmployeeInDatabase(lastname, firstname, email, gender, birthday) {
-  var id = document.getElementById('myTable').rows.length-1;
+  var id = employeeId;
   setDoc(doc(membersRef, `${id}`),{
     firstname: lastname,
     lastname: firstname,
@@ -130,6 +130,7 @@ document.getElementById("add-employee-button").addEventListener("click", async f
 });
 
 function AddEmployee() {
+  employeeId++;
   var lastName = document.getElementById("lname").value;
   var firstName = document.getElementById("fname").value;
   var email = document.getElementById("email").value;
@@ -155,8 +156,8 @@ function AddEmployee() {
     cell5.innerHTML=date; 
     cell7.innerHTML='<input type="button" class="delete-button fa fa-remove" id="deleteButton" value="X">'
     var drop=document.getElementsByClassName("delete-button");
+    var currentid=employeeId;
     drop[row.rowIndex-1].addEventListener("click", async function(){
-      var currentid=document.getElementById('myTable').rows.length-1;
       DeleteMember(row, currentid);
     });
 
@@ -190,7 +191,7 @@ function AddEmployeeSort(employee) {
   cell7.innerHTML='<input type="button" class="delete-button fa fa-remove" id="deleteButton" value="X">'
   var drop=document.getElementsByClassName("delete-button");
   drop[row.rowIndex-1].addEventListener("click", async function(){
-    var currentid=document.getElementById('myTable').rows.length-1;
+    var currentid=employee.employeeId;
     DeleteMember(row, currentid);
   });
 }
