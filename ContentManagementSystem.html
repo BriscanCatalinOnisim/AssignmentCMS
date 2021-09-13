@@ -5,7 +5,7 @@
     <title>ContentManagementSystem</title>
     <meta charset="UTF-8">
 </head>
-<body>
+<body class="css-selector">
     <div class="topnav">
         <div class="leftTopNav">
             <a class="tab" href="#">Home</a>
@@ -21,9 +21,24 @@
         <h2>Create Entry</h2>
         <button id="button" class="trigger" style="vertical-align:middle">
             <span> Create </span>
-        </button>
+        </button>        
     </div> 
     <input type="text" id="myInput" onkeyup="sortNames()" placeholder="Search for names ..." title="Type in a name">
+    <div>
+        <select class="sortClass" id="sortBy">
+            <option class="sort-option" selected value="name">Name</option>
+            <option class="sort-option" value="birthday">Birthday</option>
+        </select>
+        <select class="sortClass" id="sortType">
+            <option class="sort-option" selected value="asc">Asc</option>
+            <option class="sort-option" value="desc">Desc</option>
+        </select>           
+        <div>
+            <button id="button" class="sort">
+                <span> Sort </span>
+            </button>
+        </div>
+    </div>
     <div style="overflow-x: auto;">
         <table id="myTable">
             <th id="tlname">Last Name</th>
@@ -32,9 +47,13 @@
             <th id="tgender">Gender</th>
             <th id="tbirthday">Birthday</th> 
             <th id="tdelete">DeleteItem</th>   
-            
+            <tbody id="employeesTableBody"></tbody>
         </table>
+
+
     </div>
+
+
     <div class="footer">
         <div class="leftFooter">
             <a class="tab">About</a>
@@ -78,7 +97,7 @@
     </div>
 
     <script type="module" src="index.js"></script>
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
