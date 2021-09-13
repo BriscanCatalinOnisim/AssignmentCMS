@@ -170,10 +170,14 @@ function DeleteMemberFromDatabase(currentid){
 }
 
 function DeleteMember(row, currentid){
+  if (confirmAction() == true)
+  {
     var table=document.getElementById('myTable');
     var id=row.rowIndex;
     table.deleteRow(id);
     DeleteMemberFromDatabase(currentid);
+  }
+  
 }
 
 function validate(lastName, firstName, email, sex, birthday) {
@@ -240,4 +244,8 @@ function previewFile() {
   if (file) {
     reader.readAsDataURL(file);
   }
+}
+
+function confirmAction() {
+  return confirm('Are you sure you want to delete this item?');
 }
